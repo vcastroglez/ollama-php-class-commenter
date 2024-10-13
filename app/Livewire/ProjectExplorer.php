@@ -11,9 +11,10 @@ class ProjectExplorer extends Component
 {
     use WithFileUploads;
 
+    public string $title = "Class comment generator";
     public ?TemporaryUploadedFile $class_file = null;
 
-    public array $commented_class = [];
+    public string $commented_class = '';
     protected OllamaClient $client;
 
     public function __construct()
@@ -31,14 +32,11 @@ class ProjectExplorer extends Component
         $response = $this->client->create([
             'model' => 'llama3.2:3b-instruct-q8_0',
             'messages' => [
-                ['role' => 'system', 'content' => "You're a senior php developer specialized in analysing php Classes and adding comments to the class so that your other team members can understand it by reading your comments, you need to add comments to lines that may be confusing"],
-                ['role' => 'system', 'content' => "Answer only with the class with the comments added"],
-                ['role' => 'user', 'content' => 'Please add comments to this PHP class:' . PHP_EOL . $contents],
+                ['role' => 'user', 'content' => 'Answer only with the commented class. Please add comments to this PHP class:' . PHP_EOL . $contents],
             ]
         ]);
-        dd($response);//vla
 
-        $this->commented_class = $response->toArray();
+        $this->commented_class = $response;
     }
 
     public function render()

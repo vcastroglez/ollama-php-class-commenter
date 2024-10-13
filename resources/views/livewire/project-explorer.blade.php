@@ -7,5 +7,7 @@
         <button type="submit" >Analyze file</button >
     </form >
 
-    {{ json_encode($commented_class) }}
+    <pre >
+        {!!  $commented_class  !!}
+    </pre >
 </div >
