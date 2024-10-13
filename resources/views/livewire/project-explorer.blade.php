@@ -8,6 +8,6 @@
     </form >
 
     <pre >
-        {!!  $commented_class  !!}
+        {{  $commented_class  }}
     </pre >
 </div >
